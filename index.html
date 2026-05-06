@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Validasi Kepegawaian</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #chat-container { width: 350px; height: 500px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
+        #chat-header { background: #007bff; color: white; padding: 15px; text-align: center; font-weight: bold; }
+        #chat-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 14px; }
+        .bot { background: #e9ecef; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user { background: #007bff; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        #chat-input-area { display: flex; border-top: 1px solid #ddd; padding: 10px; }
+        #user-input { flex: 1; border: none; outline: none; padding: 5px; }
+        #send-btn { background: none; border: none; color: #007bff; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div id="chat-container">
+    <div id="chat-header">Asisten Validasi Data</div>
+    <div id="chat-box">
+        <div class="msg bot">Halo! Saya asisten admin kepegawaian. Siapa nama Anda?</div>
+    </div>
+    <div id="chat-input-area">
+        <input type="text" id="user-input" placeholder="Ketik jawaban Anda..." onkeypress="handleKeyPress(event)">
+        <button id="send-btn" onclick="sendMessage()">Kirim</button>
+    </div>
+</div>
+
+<script>
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+
+    // Fungsi menampilkan pesan
+    function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('msg', sender);
+        msgDiv.innerText = text;
+        chatBox.appendChild(msgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll ke bawah
+    }
+
+    // Alur logika chatbot sederhana
+    let step = 1;
+    function sendMessage() {
+        const message = userInput.value.trim();
+        if (message === "") return;
+
+        addMessage(message, 'user');
+        userInput.value = "";
+
+        // Logika jawaban Bot (Bisa Anda modifikasi sesuai kebutuhan validasi)
+        setTimeout(() => {
+            if (step === 1) {
+                addMessage(`Salam kenal, ${message}. Masukkan NIP Anda untuk validasi.`, 'bot');
+                step++;
+            } else if (step === 2) {
+                addMessage("Terima kasih. Apakah alamat Anda masih di 'Jl. Merdeka No. 10'? (Ya/Tidak)", 'bot');
+                step++;
+            } else {
+                addMessage("Data telah kami terima dan masuk dalam rekapitulasi. Terima kasih!", 'bot');
+            }
+        }, 800);
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
+</script>
+
+</body>
+</html>
+
