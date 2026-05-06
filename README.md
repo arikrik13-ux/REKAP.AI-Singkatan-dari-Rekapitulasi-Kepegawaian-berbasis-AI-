@@ -1,2 +1,2 @@
-# REKAP.AI-Singkatan-dari-Rekapitulasi-Kepegawaian-berbasis-AI-
+# REKAP.AI-Rekapitulasi-Kepegawaian-berbasis-AI-
 Chatbot untuk validasi data riwayat hidup pegawai
